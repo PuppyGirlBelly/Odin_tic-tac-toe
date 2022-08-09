@@ -1,1 +1,60 @@
 @use 'palette';
+
+$grid-size: 200px;
+$margin: 24px;
+
+body {
+  background: palette.$c1;
+  color: palette.$c5;
+  text-align: center;
+
+  // h1 {
+
+  // }
+
+  .info {
+    display: grid;
+    grid-template-columns: repeat(3, $grid-size);
+    gap: calc($margin / 2);
+    width: min-content;
+    margin: $margin auto;
+
+    .infobox {
+      padding: 0;
+      border: 3px solid palette.$c5;
+      font-size: 24px;
+      position: relative;
+
+      .label {
+        background: palette.$c5;
+        color: palette.$c1;
+      }
+
+      .player1, .turn, .player2 {
+        font-size: 48px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .game-board {
+    display: grid;
+    grid-template: repeat(3, $grid-size) / repeat(3, $grid-size);
+    gap: calc($margin / 2);
+    margin: $margin auto;
+    width: min-content;
+
+    .square {
+      border: 12px solid palette.$c5;
+      font-weight: bold;
+      font-size: 180px;
+      line-height: 180px;
+    }
+  }
+
+  // .buttons {
+  //   button {
+
+  //   }
+  // }
+}

@@ -1,5 +1,5 @@
 {
-  "files": ["./src/ts/main.ts", "./src/ts/getBoard.ts"],
+  "files": ["./src/ts/main.ts", "./src/ts/getBoard.ts", "./src/ts/display.ts"],
   "compilerOptions": {
     "noImplicitAny": true,
     "strictNullChecks": true,

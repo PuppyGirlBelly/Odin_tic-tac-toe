@@ -1,2 +1,44 @@
-
+body {
+  background: #FFCDB1;
+  color: #6D6875;
+  text-align: center;
+}
+body .info {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  gap: 12px;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  margin: 24px auto;
+}
+body .info .infobox {
+  padding: 0;
+  border: 3px solid #6D6875;
+  font-size: 24px;
+  position: relative;
+}
+body .info .infobox .label {
+  background: #6D6875;
+  color: #FFCDB1;
+}
+body .info .infobox .player1, body .info .infobox .turn, body .info .infobox .player2 {
+  font-size: 48px;
+  font-weight: bold;
+}
+body .game-board {
+  display: grid;
+  grid-template: repeat(3, 200px)/repeat(3, 200px);
+  gap: 12px;
+  margin: 24px auto;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+}
+body .game-board .square {
+  border: 12px solid #6D6875;
+  font-weight: bold;
+  font-size: 180px;
+  line-height: 180px;
+}
 /*# sourceMappingURL=main.css.map */
