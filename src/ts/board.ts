@@ -48,7 +48,6 @@ export function setSquare(i: number) {
 
   if (squares[i] === '') {
     squares[i] = marker;
+    swapPlayers();
   }
-
-  swapPlayers();
 }
