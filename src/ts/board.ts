@@ -13,8 +13,8 @@ interface Players {
 
 let squares = ['', '', '', '', '', '', '', '', ''];
 const players: Players = {
-  X: { marker: 'O', score: 0, turn: true },
-  O: { marker: 'X', score: 0, turn: false },
+  X: { marker: 'X', score: 0, turn: true },
+  O: { marker: 'O', score: 0, turn: false },
 };
 
 function swapPlayers() {
@@ -22,15 +22,25 @@ function swapPlayers() {
   players.O.turn = !players.O.turn;
 }
 
-export function getPlayerTurn(): string {
+function getCurrentPlayer(): Player {
   if (players.X.turn) {
-    return players.X.marker;
+    return players.X;
   }
-  return players.O.marker;
+  return players.O;
+}
+
+export function getCurrentPlayerMarker(): string {
+  const player = getCurrentPlayer();
+  return player.marker;
 }
 
 export function getScores(): number[] {
   return [players.X.score, players.O.score];
+}
+
+function updateScores(): void {
+  const player = getCurrentPlayer();
+  player.score += 1;
 }
 
 export function getBoard(): string[] {
@@ -53,12 +63,37 @@ function setSquare(i: number, mark: string): boolean {
   return false;
 }
 
-export function playSquare(i: number) {
-  const marker = getPlayerTurn();
+function checkIfEqual(winSet: string[]): boolean {
+  return winSet[0] === winSet[1] && winSet[1] === winSet[2] && winSet[0] !== '';
+}
+
+function checkForWin(): boolean {
+  const lines = [
+    [squares[0], squares[1], squares[2]],
+    [squares[3], squares[4], squares[5]],
+    [squares[6], squares[7], squares[8]],
+    [squares[0], squares[3], squares[6]],
+    [squares[1], squares[4], squares[7]],
+    [squares[2], squares[5], squares[8]],
+    [squares[0], squares[4], squares[8]],
+    [squares[2], squares[4], squares[6]],
+  ];
+
+  return lines.some(checkIfEqual);
+}
+
+export function playSquare(i: number): boolean {
+  console.dir(players);
+  const marker = getCurrentPlayerMarker();
+  let win = false;
 
   const successful = setSquare(i, marker);
 
   if (successful) {
+    win = checkForWin();
+    if (win) updateScores();
     swapPlayers();
   }
+
+  return win;
 }

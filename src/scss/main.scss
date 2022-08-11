@@ -27,6 +27,7 @@ body {
     .infobox {
       padding: 0;
 
+      height: 120px;
       border: 3px solid palette.$c5;
       border-radius: 6px;
       font-size: 24px;
@@ -39,7 +40,7 @@ body {
       }
 
       .player1, .turn, .player2 {
-        font-size: 48px;
+        font-size: 4rem;
         font-weight: bold;
       }
     }
@@ -63,14 +64,18 @@ body {
 
       box-shadow: 0 calc($margin / 1.5) 0 0 palette.$c4;
 
+      transition-timing-function: ease-in;
+
       &:hover {
         box-shadow: 0 calc($margin / 2) 0 0 palette.$c4;
         transform: translateY(calc($margin / 6));
+        transition: box-shadow 0.15s, transform 0.15s;
       }
 
       &:active {
         box-shadow: 0 calc($margin / 6) 0 0 palette.$c4;
         transform: translateY(calc($margin / 2));
+        transition: box-shadow 0.05s, transform 0.05s;
       }
     }
 
@@ -104,4 +109,34 @@ body {
 
   //   }
   // }
+
+  #win-screen {
+    display: none;
+    position: absolute;
+    top: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: color.adjust(palette.$c5, $alpha: -0.5);
+
+    .win-window {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      padding: $margin;
+
+      background: palette.$c1;
+      border: 12px solid palette.$c4;
+      border-radius: 12px;
+      font-size: 1.25rem;
+
+      & > p:first-child {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+  }
 }
