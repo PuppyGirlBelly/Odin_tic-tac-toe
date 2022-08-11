@@ -1,4 +1,4 @@
-export type Marker = 'ⵔ' | '🞬';
+export type Marker = 'O' | 'X';
 
 interface Player {
   marker: Marker;
@@ -13,8 +13,8 @@ interface Players {
 
 let squares = ['', '', '', '', '', '', '', '', ''];
 const players: Players = {
-  X: { marker: 'ⵔ', score: 0, turn: true },
-  O: { marker: '🞬', score: 0, turn: false },
+  X: { marker: 'O', score: 0, turn: true },
+  O: { marker: 'X', score: 0, turn: false },
 };
 
 function swapPlayers() {
@@ -22,11 +22,11 @@ function swapPlayers() {
   players.O.turn = !players.O.turn;
 }
 
-export function getPlayerTurn(): Player {
+export function getPlayerTurn(): string {
   if (players.X.turn) {
-    return players.X;
+    return players.X.marker;
   }
-  return players.O;
+  return players.O.marker;
 }
 
 export function getScores(): number[] {
@@ -41,22 +41,20 @@ export function resetBoard(): void {
   squares = ['', '', '', '', '', '', '', '', ''];
 }
 
-export function setSquare(i: number, v: string): boolean {
-  if (squares[i] === '') {
-    squares[i] = v;
+export function getSquare(i: number): string {
+  return squares[i];
+}
+
+function setSquare(i: number, mark: string): boolean {
+  if (getSquare(i) === '') {
+    squares[i] = mark;
     return true;
   }
   return false;
 }
 
-export function getSquare(i: number): string {
-  return squares[i];
-}
-
 export function playSquare(i: number) {
-  let marker = '';
-  if (players.X.turn === true) marker = 'X';
-  if (players.O.turn === true) marker = 'O';
+  const marker = getPlayerTurn();
 
   const successful = setSquare(i, marker);
 

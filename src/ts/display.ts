@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import * as board from './board';
 
 const squares = document.querySelectorAll<HTMLElement>('.square');
@@ -8,10 +9,16 @@ export function writeBoardToPage(): void {
 
   squares.forEach((square) => {
     marker = board.getSquare(counter);
-    // eslint-disable-next-line no-param-reassign
-    square.textContent = marker;
-    // eslint-disable-next-line no-plusplus
-    counter++;
+    if (marker !== '') {
+      square.classList.add(`${marker}`);
+    }
+    counter += 1;
+  });
+}
+
+function resetBoardClasses(): void {
+  squares.forEach((square) => {
+    square.classList.remove('X', 'O');
   });
 }
 
@@ -19,11 +26,15 @@ export function writeInfoToPage(): void {
   const p1 = document.querySelector('.player1');
   const turn = document.querySelector('.turn');
   const p2 = document.querySelector('.player2');
-  const [p1score, p2score] = board.getScores();
 
-  p1.textContent = p1score.toString();
-  turn.textContent = board.getCurrentPlayer().marker;
-  p2.textContent = p2score.toString();
+  const [p1score, p2score] = board.getScores();
+  const marker = board.getPlayerTurn() === 'X' ? '🞬 ' : 'ⵔ ';
+
+  if (p1 !== null && turn !== null && p2 !== null) {
+    p1.textContent = p1score.toString();
+    turn.textContent = marker;
+    p2.textContent = p2score.toString();
+  }
 }
 
 function setResetButton(): void {
@@ -31,6 +42,7 @@ function setResetButton(): void {
 
   reset?.addEventListener('click', () => {
     board.resetBoard();
+    resetBoardClasses();
     writeBoardToPage();
   });
 }
