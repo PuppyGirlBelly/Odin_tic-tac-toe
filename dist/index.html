@@ -15,17 +15,17 @@
     <body>
       <h1>Tic-Tac-Toe</h1>
       <div class="info">
-        <div class="infobox">
-          <div class="label">✖ <em>Score</em></div>
-          <div class="player1"></div>
+        <div class="infobox X">
+          <div class="p1-label">✖ Score</div>
+          <div class="p1-info"></div>
         </div>
         <div class="infobox">
-          <div class="label">Current Player</div>
-          <div class="turn"></div>
+          <div class="turn-label">Current Player</div>
+          <div class="turn-info"></div>
         </div>
-        <div class="infobox">
-          <div class="label">ⵔ <em>Score</em></div>
-          <div class="player2"></div>
+        <div class="infobox O">
+          <div class="p2-label">ⵔ Score</div>
+          <div class="p2-info"></div>
         </div>
       </div>
       <div class="game-board">
@@ -41,6 +41,20 @@
       </div>
       <div class="buttons">
         <button type="button" class="reset">Reset</button>
+        <button type="button" class="set-names">Set Names</button>
+      </div>
+      <div id="names-screen">
+        <div class="names-window">
+          <p>Enter your names</p>
+          <form>
+            <label for="p1-name">X: </label>
+            <input type="text" name="p1-name" id="p1-name" value="✖">
+            <br>
+            <label for="p2-name">O: </label>
+            <input type="text" name="p2-name" id="p2-name" value="ⵔ">
+            <button type="button" class="name-submit">Start Game</button>
+          </form>
+        </div>
       </div>
       <div id="win-screen">
         <div class="win-window">

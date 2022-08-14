@@ -1,6 +1,5 @@
 // eslint-disable-next-line import/extensions
-import * as board from './board';
-import displayHandler from './display';
+import { displayHandler, displayNames } from './display';
 
-board.resetBoard();
+displayNames();
 displayHandler();

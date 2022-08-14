@@ -17,126 +17,176 @@ body {
   -ms-user-select: none;
   user-select: none;
 
-  .info {
-    display: grid;
-    grid-template-columns: repeat(3, $grid-size);
-    gap: calc($margin / 2);
-    width: min-content;
-    margin: $margin auto;
+}
 
-    .infobox {
-      padding: 0;
+.X {
+  background: palette.$c2;
+  color: palette.$c5;
+}
 
-      height: 120px;
-      border: 3px solid palette.$c5;
-      border-radius: 6px;
-      font-size: 24px;
+.O {
+  background: palette.$c3;
+  color: palette.$c1;
+}
 
-      position: relative;
 
-      .label {
-        background: palette.$c5;
-        color: palette.$c1;
-      }
+.info {
+  display: grid;
+  grid-template-columns: repeat(3, $grid-size);
+  gap: calc($margin / 2);
+  width: min-content;
+  margin: $margin auto;
 
-      .player1, .turn, .player2 {
-        font-size: 4rem;
-        font-weight: bold;
-      }
-    }
-  }
+  .infobox {
+    padding: 0;
 
-  .game-board {
-    display: grid;
-    grid-template: repeat(3, $grid-size) / repeat(3, $grid-size);
-    gap: $margin calc($margin / 2);
+    border: 3px solid palette.$c5;
+    border-radius: 6px;
+    font-size: 24px;
 
-    margin: $margin auto;
-    width: min-content;
+    position: relative;
 
-    .square {
-      border: 12px solid palette.$c5;
-      border-radius: 24px;
-
-      font-weight: bold;
-      font-size: 180px;
-      line-height: 180px;
-
-      box-shadow: 0 calc($margin / 1.5) 0 0 palette.$c4;
-
-      transition-timing-function: ease-in;
-
-      &:hover {
-        box-shadow: 0 calc($margin / 2) 0 0 palette.$c4;
-        transform: translateY(calc($margin / 6));
-        transition: box-shadow 0.15s, transform 0.15s;
-      }
-
-      &:active {
-        box-shadow: 0 calc($margin / 6) 0 0 palette.$c4;
-        transform: translateY(calc($margin / 2));
-        transition: box-shadow 0.05s, transform 0.05s;
-      }
-    }
-
-    .X {
-      background: palette.$c2;
-      color: palette.$c5;
-
-      &::before {
-        content: '✖';
-      }
-    }
-
-    .O {
-      background: palette.$c3;
+    div[class$="label"] {
+      background: palette.$c5;
       color: palette.$c1;
-
-      &::before {
-        content: 'ⵔ';
-      }
+      font-style: italic;
     }
 
-    .X:hover, .O:hover,
-    .X:active, .O:active {
-      box-shadow: 0 calc($margin / 1.5) 0 0 palette.$c4;
-      transform: unset;
+    div[class$="info"] {
+      font-size: 4rem;
+      font-weight: bold;
+    }
+  }
+}
+
+.game-board {
+  display: grid;
+  grid-template: repeat(3, $grid-size) / repeat(3, $grid-size);
+  gap: $margin calc($margin / 2);
+
+  margin: $margin auto;
+  width: min-content;
+
+  .square {
+    border: 12px solid palette.$c5;
+    border-radius: 24px;
+
+    font-weight: bold;
+    font-size: 180px;
+    line-height: 180px;
+
+    box-shadow: 0 calc($margin / 1.5) 0 0 palette.$c4;
+
+    transition-timing-function: ease-in;
+
+    &:hover {
+      box-shadow: 0 calc($margin / 2) 0 0 palette.$c4;
+      transform: translateY(calc($margin / 6));
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+
+    &:active {
+      box-shadow: 0 calc($margin / 6) 0 0 palette.$c4;
+      transform: translateY(calc($margin / 2));
+      transition: box-shadow 0.05s, transform 0.05s;
     }
   }
 
-  // .buttons {
-  //   button {
+  .X::before {
+    content: '✖';
+  }
 
-  //   }
-  // }
+  .O::before {
+    content: 'ⵔ';
+  }
 
-  #win-screen {
-    display: none;
+  .X:hover, .O:hover,
+  .X:active, .O:active {
+    box-shadow: 0 calc($margin / 1.5) 0 0 palette.$c4;
+    transform: unset;
+  }
+}
+
+button {
+  padding: calc($margin / 4) calc($margin / 2);
+
+  background: palette.$c2;
+  border: 2px solid palette.$c4;
+  border-radius: 4px;
+  color: palette.$c5;
+
+  font-weight: bold;
+}
+
+#names-screen {
+  // display: none;
+  position: absolute;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: color.adjust(palette.$c5, $alpha: -0.5);
+
+  .names-window {
     position: absolute;
-    top: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
-    width: 100vw;
-    height: 100vh;
+    padding: $margin;
 
-    background: color.adjust(palette.$c5, $alpha: -0.5);
+    background: palette.$c1;
+    border: 12px solid palette.$c4;
+    border-radius: 12px;
+    font-size: 1.25rem;
 
-    .win-window {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+    p, label {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
 
-      padding: $margin;
+    input {
+      margin-bottom: calc($margin / 2);
 
-      background: palette.$c1;
-      border: 12px solid palette.$c4;
-      border-radius: 12px;
-      font-size: 1.25rem;
+      background: palette.$c2;
+      border: 1px solid palette.$c4;
+      border-radius: 4px;
+      color: palette.$c5;
+    }
 
-      & > p:first-child {
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
+    button {
+      margin-top: calc($margin / 2);
+    }
+  }
+}
+
+#win-screen {
+  display: none;
+  position: absolute;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: color.adjust(palette.$c5, $alpha: -0.5);
+
+  .win-window {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: $margin;
+
+    background: palette.$c1;
+    border: 12px solid palette.$c4;
+    border-radius: 12px;
+    font-size: 1.25rem;
+
+    & > p:first-child {
+      font-size: 1.5rem;
+      font-weight: bold;
     }
   }
 }

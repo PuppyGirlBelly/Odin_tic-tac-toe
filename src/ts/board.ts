@@ -1,6 +1,7 @@
 export type Marker = 'O' | 'X';
 
 interface Player {
+  name: string;
   marker: Marker;
   score: number;
   turn: boolean;
@@ -13,8 +14,8 @@ interface Players {
 
 let squares = ['', '', '', '', '', '', '', '', ''];
 const players: Players = {
-  X: { marker: 'X', score: 0, turn: true },
-  O: { marker: 'O', score: 0, turn: false },
+  X: { name: '✖', marker: 'X', score: 0, turn: true },
+  O: { name: 'ⵔ', marker: 'O', score: 0, turn: false },
 };
 
 function swapPlayers() {
@@ -36,6 +37,14 @@ export function getCurrentPlayerMarker(): string {
 
 export function getScores(): number[] {
   return [players.X.score, players.O.score];
+}
+
+export function setPlayerNames(names: string[]): void {
+  [players.X.name, players.O.name] = names;
+}
+
+export function getPlayerNames(): string[] {
+  return [players.X.name, players.O.name];
 }
 
 function updateScores(): void {
