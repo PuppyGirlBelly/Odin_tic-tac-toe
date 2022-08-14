@@ -22,7 +22,7 @@ export function writeInfoToPage(): void {
   const p2 = document.querySelector('.player2');
 
   const [p1score, p2score] = board.getScores();
-  const marker = board.getCurrentPlayerMarker() === 'X' ? '🞬 ' : 'ⵔ ';
+  const marker = board.getCurrentPlayerMarker() === 'X' ? '✖' : 'ⵔ ';
 
   if (p1 !== null && turn !== null && p2 !== null) {
     p1.textContent = p1score.toString();
@@ -55,14 +55,19 @@ function hideWin(): void {
 }
 
 function setSquareEventHandlers(): void {
-  let result = false;
+  let isWin = false;
+
   squares.forEach((square) => {
     square.addEventListener('click', () => {
       const index: number = Number(square.id);
-      result = board.playSquare(index);
-      if (result) displayWin();
-      writeBoardToPage();
-      writeInfoToPage();
+      isWin = board.playSquare(index);
+      if (isWin) {
+        writeBoardToPage();
+        displayWin();
+      } else {
+        writeBoardToPage();
+        writeInfoToPage();
+      }
     });
   });
 }
