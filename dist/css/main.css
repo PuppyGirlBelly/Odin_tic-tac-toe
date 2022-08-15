@@ -116,7 +116,18 @@ button {
   font-size: 1.5rem;
   font-weight: bold;
 }
-#names-screen .names-window input {
+#names-screen .names-window fieldset {
+  margin-bottom: 24px;
+  border: 1px solid #B5838D;
+  text-align: left;
+}
+#names-screen .names-window fieldset label {
+  font-size: unset;
+}
+#names-screen .names-window #p1-input, #names-screen .names-window #p2-input {
+  width: 400px;
+}
+#names-screen .names-window #p1-input input, #names-screen .names-window #p2-input input {
   margin-bottom: 12px;
   background: #FFB4A2;
   border: 1px solid #B5838D;

@@ -11,23 +11,29 @@ const tsify = require('tsify');
 const terser = require('gulp-terser');
 const fancyLog = require('fancy-log');
 
-const paths = {
-  scripts: ['src/ts/*.ts'],
-  styles: ['src/scss/*.scss'],
-  pages: ['src/*.html'],
+const srcPaths = {
+  scripts: ['./src/ts/*.ts'],
+  styles: ['./src/scss/*.scss'],
+  pages: ['./src/*.html'],
+};
+
+const distPaths = {
+  scripts: ['./dist/js/'],
+  styles: ['./dist/css/'],
+  pages: ['./dist/'],
 };
 
 function copyHtml() {
-  return src(paths.pages).pipe(dest('dist/')).pipe(bs.stream());
+  return src(srcPaths.pages).pipe(dest(distPaths.pages)).pipe(bs.stream());
 }
 
 function buildStyles() {
-  return src(paths.styles)
+  return src(srcPaths.styles)
     .pipe(sourcemaps.init())
     .pipe(sass.sync().on('error', sass.logError))
     .pipe(postCss([require('autoprefixer')]))
     .pipe(sourcemaps.write('.'))
-    .pipe(dest('./dist/css/'))
+    .pipe(dest(distPaths.styles))
     .pipe(bs.stream());
 }
 
@@ -36,7 +42,7 @@ function bundle() {
     browserify({
       basedir: '.',
       debug: true,
-      entries: ['src/ts/main.ts'],
+      entries: ['./src/ts/main.ts'],
       cache: {},
       packageCache: {},
     })
@@ -53,7 +59,7 @@ function bundle() {
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(terser())
     .pipe(sourcemaps.write('.'))
-    .pipe(dest('./dist/js/'))
+    .pipe(dest(distPaths.scripts))
     .pipe(bs.stream());
 }
 
@@ -64,12 +70,12 @@ function browserSync() {
 
   bs.init({
     server: {
-      baseDir: './dist/',
+      baseDir: distPaths.pages,
     },
   });
 
-  watch('./src/*.html').on('change', copyHtml);
-  watch('./src/scss/**/*.scss', buildStyles);
+  watch(srcPaths.pages).on('change', copyHtml);
+  watch(srcPaths.styles, buildStyles);
 }
 
 exports.default = browserSync;

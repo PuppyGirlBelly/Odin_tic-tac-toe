@@ -40,18 +40,28 @@
         <div class="square" id="8"></div>
       </div>
       <div class="buttons">
-        <button type="button" class="reset">Reset</button>
-        <button type="button" class="set-names">Set Names</button>
+        <button type="button" class="reset">Reset Game</button>
       </div>
       <div id="names-screen">
         <div class="names-window">
           <p>Enter your names</p>
           <form>
-            <label for="p1-name">X: </label>
-            <input type="text" name="p1-name" id="p1-name" value="✖">
-            <br>
-            <label for="p2-name">O: </label>
-            <input type="text" name="p2-name" id="p2-name" value="ⵔ">
+            <fieldset>
+              <legend>Number of Players</legend>
+              <input type="radio" name="player-select" id="single-player" value="singlePlayer">
+              <label for="player-select">One (Player vs. AI)</label>
+              <br>
+              <input type="radio" name="player-select" id="multi-player" value="multiPlayer" checked>
+              <label for="player-select">Two (Player vs. Player)</label>
+            </fieldset>
+            <div id="p1-input">
+              <label for="p1-name">X: </label>
+              <input type="text" name="p1-name" id="p1-name" value="✖">
+            </div>
+            <div id="p2-input">
+              <label for="p2-name">O: </label>
+              <input type="text" name="p2-name" id="p2-name" value="ⵔ">
+            </div>
             <button type="button" class="name-submit">Start Game</button>
           </form>
         </div>
@@ -59,8 +69,8 @@
       <div id="win-screen">
         <div class="win-window">
           <p>Congratulations!</p>
-          <p><span class="turn"></span> won!</p>
-          <button type="button" class="reset">Reset</button>
+          <p><span class="turn-info"></span> won!</p>
+          <button type="button" class="new-game">New Game</button>
         </div>
       </div>
     </body>

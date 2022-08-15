@@ -5,6 +5,7 @@ interface Player {
   marker: Marker;
   score: number;
   turn: boolean;
+  ai: boolean;
 }
 
 interface Players {
@@ -14,8 +15,8 @@ interface Players {
 
 let squares = ['', '', '', '', '', '', '', '', ''];
 const players: Players = {
-  X: { name: '✖', marker: 'X', score: 0, turn: true },
-  O: { name: 'ⵔ', marker: 'O', score: 0, turn: false },
+  X: { name: '✖', marker: 'X', score: 0, turn: true, ai: false },
+  O: { name: 'ⵔ', marker: 'O', score: 0, turn: false, ai: false },
 };
 
 function swapPlayers() {
@@ -47,6 +48,10 @@ export function getPlayerNames(): string[] {
   return [players.X.name, players.O.name];
 }
 
+export function setAI(bool: boolean): void {
+  players.O.ai = bool;
+}
+
 function updateScores(): void {
   const player = getCurrentPlayer();
   player.score += 1;
@@ -58,6 +63,12 @@ export function getBoard(): string[] {
 
 export function resetBoard(): void {
   squares = ['', '', '', '', '', '', '', '', ''];
+}
+
+export function resetGame(): void {
+  squares = ['', '', '', '', '', '', '', '', ''];
+  players.X.score = 0;
+  players.O.score = 0;
 }
 
 export function getSquare(i: number): string {

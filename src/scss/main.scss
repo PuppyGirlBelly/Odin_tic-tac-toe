@@ -146,13 +146,29 @@ button {
       font-weight: bold;
     }
 
-    input {
-      margin-bottom: calc($margin / 2);
+    fieldset {
+      margin-bottom: $margin;
 
-      background: palette.$c2;
       border: 1px solid palette.$c4;
-      border-radius: 4px;
-      color: palette.$c5;
+
+      text-align: left;
+
+      label {
+        font-size: unset;
+      }
+    }
+
+    #p1-input, #p2-input {
+      width: 400px;
+
+      input {
+        margin-bottom: calc($margin / 2);
+
+        background: palette.$c2;
+        border: 1px solid palette.$c4;
+        border-radius: 4px;
+        color: palette.$c5;
+      }
     }
 
     button {

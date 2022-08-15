@@ -77,17 +77,15 @@ function setSquareEventHandlers(): void {
   });
 }
 
-function setResetButton(): void {
-  const reset = document.querySelectorAll('.reset');
+function setNewGameButton(): void {
+  const newGame = document.querySelector('.new-game');
 
-  reset?.forEach((e) => {
-    e.addEventListener('click', () => {
-      board.resetBoard();
-      resetBoardClasses();
-      writeBoardToPage();
-      writeInfoToPage();
-      hideModal('win-screen');
-    });
+  newGame!.addEventListener('click', () => {
+    board.resetBoard();
+    resetBoardClasses();
+    writeBoardToPage();
+    writeInfoToPage();
+    hideModal('win-screen');
   });
 }
 
@@ -103,14 +101,48 @@ function setNameSubmitButton(): void {
   });
 }
 
+function setResetButton(): void {
+  const newGame = document.querySelector('.reset');
+
+  newGame!.addEventListener('click', () => {
+    board.resetGame();
+    resetBoardClasses();
+    writeBoardToPage();
+    writeInfoToPage();
+    displayModal('names-screen');
+  });
+}
+
+function toggleNameInput(): void {
+  const multi = document.getElementById('multi-player') as HTMLInputElement;
+  const p2NameInput = document.getElementById('p2-input');
+
+  if (multi!.checked) {
+    p2NameInput!.style.display = 'block';
+    board.setAI(false);
+  } else {
+    p2NameInput!.style.display = 'none';
+    board.setAI(true);
+  }
+}
+
+function setPlayerSelectHandler(): void {
+  const radioButtons = document.querySelectorAll('input[name="player-select"]');
+  radioButtons.forEach((radio) => {
+    radio.addEventListener('click', toggleNameInput);
+  });
+}
+
 export function displayNames(): void {
   displayModal('names-screen');
 }
 
 export function displayHandler(): void {
-  setResetButton();
+  setNewGameButton();
   setNameSubmitButton();
+  setResetButton();
   setSquareEventHandlers();
+  setPlayerSelectHandler();
   writeBoardToPage();
   writeInfoToPage();
 }
