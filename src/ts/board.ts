@@ -1,3 +1,6 @@
+// eslint-disable-next-line no-unused-vars, import/no-unresolved, import/extensions
+import aiMove from './ai';
+
 export type Marker = 'O' | 'X';
 
 interface Player {
@@ -5,7 +8,6 @@ interface Player {
   marker: Marker;
   score: number;
   turn: boolean;
-  ai: boolean;
 }
 
 interface Players {
@@ -13,10 +15,11 @@ interface Players {
   O: Player;
 }
 
+let multiplayer = false;
 let squares = ['', '', '', '', '', '', '', '', ''];
 const players: Players = {
-  X: { name: '✖', marker: 'X', score: 0, turn: true, ai: false },
-  O: { name: 'ⵔ', marker: 'O', score: 0, turn: false, ai: false },
+  X: { name: '✖', marker: 'X', score: 0, turn: true },
+  O: { name: 'ⵔ', marker: 'O', score: 0, turn: false },
 };
 
 function swapPlayers() {
@@ -48,8 +51,8 @@ export function getPlayerNames(): string[] {
   return [players.X.name, players.O.name];
 }
 
-export function setAI(bool: boolean): void {
-  players.O.ai = bool;
+export function setMultiplayer(bool: boolean): void {
+  multiplayer = bool;
 }
 
 function updateScores(): void {
@@ -63,11 +66,15 @@ export function getBoard(): string[] {
 
 export function resetBoard(): void {
   squares = ['', '', '', '', '', '', '', '', ''];
+  players.X.turn = true;
+  players.O.turn = false;
 }
 
 export function resetGame(): void {
   squares = ['', '', '', '', '', '', '', '', ''];
+  players.X.turn = true;
   players.X.score = 0;
+  players.O.turn = false;
   players.O.score = 0;
 }
 
@@ -102,18 +109,36 @@ function checkForWin(): boolean {
   return lines.some(checkIfEqual);
 }
 
-export function playSquare(i: number): boolean {
-  console.dir(players);
-  const marker = getCurrentPlayerMarker();
+function markSquare(i: number): boolean {
   let win = false;
 
+  const marker = getCurrentPlayerMarker();
   const successful = setSquare(i, marker);
 
   if (successful) {
     win = checkForWin();
-    if (win) updateScores();
-    swapPlayers();
+    if (win) {
+      updateScores();
+      return win;
+    }
   }
 
+  swapPlayers();
+  return win;
+}
+
+export function playSquare(i: number): boolean {
+  let win = false;
+
+  if (multiplayer) {
+    win = markSquare(i);
+    return win;
+  }
+
+  win = markSquare(i);
+  if (win) return win;
+
+  const aiSquare = aiMove();
+  win = markSquare(aiSquare);
   return win;
 }

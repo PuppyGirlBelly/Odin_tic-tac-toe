@@ -4,7 +4,6 @@ import * as board from './board';
 const squares = document.querySelectorAll<HTMLElement>('.square');
 
 function displayModal(id: string): void {
-  // TODO: Fix players swapping before displaying win page.
   const modal = document.getElementById(id);
   if (modal != null) {
     modal.style.display = 'block';
@@ -67,8 +66,9 @@ function setSquareEventHandlers(): void {
       const index: number = Number(square.id);
       isWin = board.playSquare(index);
       if (isWin) {
-        writeBoardToPage();
+        writeInfoToPage();
         displayModal('win-screen');
+        writeBoardToPage();
       } else {
         writeBoardToPage();
         writeInfoToPage();
@@ -119,10 +119,10 @@ function toggleNameInput(): void {
 
   if (multi!.checked) {
     p2NameInput!.style.display = 'block';
-    board.setAI(false);
+    board.setMultiplayer(true);
   } else {
     p2NameInput!.style.display = 'none';
-    board.setAI(true);
+    board.setMultiplayer(false);
   }
 }
 
