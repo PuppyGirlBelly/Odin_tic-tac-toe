@@ -20,5 +20,6 @@ function getValidSquares(): number[] {
 
 export default function aiMove(): number {
   const moves = getValidSquares();
+  if (moves.length === 0) return 0;
   return getRandomElement(moves);
 }

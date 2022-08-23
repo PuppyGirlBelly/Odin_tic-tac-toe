@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars, import/no-unresolved, import/extensions
 import aiMove from './ai';
 
-export type Marker = 'O' | 'X';
+type Marker = 'O' | 'X';
+export type GameState = 'playing' | 'tie' | 'win';
 
 interface Player {
   name: string;
@@ -90,11 +91,11 @@ function setSquare(i: number, mark: string): boolean {
   return false;
 }
 
-function checkIfEqual(winSet: string[]): boolean {
-  return winSet[0] === winSet[1] && winSet[1] === winSet[2] && winSet[0] !== '';
+function checkIfEqual(line: string[]): boolean {
+  return line[0] === line[1] && line[1] === line[2] && line[0] !== '';
 }
 
-function checkForWin(): boolean {
+function hasWinner(): boolean {
   const lines = [
     [squares[0], squares[1], squares[2]],
     [squares[3], squares[4], squares[5]],
@@ -109,36 +110,44 @@ function checkForWin(): boolean {
   return lines.some(checkIfEqual);
 }
 
-function markSquare(i: number): boolean {
-  let win = false;
+function hasTie(): boolean {
+  return squares.indexOf('') === -1;
+}
+
+function markSquare(i: number): GameState {
+  let state: GameState = 'playing';
 
   const marker = getCurrentPlayerMarker();
   const successful = setSquare(i, marker);
 
   if (successful) {
-    win = checkForWin();
-    if (win) {
+    if (hasWinner()) {
+      state = 'win';
       updateScores();
-      return win;
+      return state;
+    }
+    if (hasTie()) {
+      state = 'tie';
+      return state;
     }
   }
 
   swapPlayers();
-  return win;
+  return state;
 }
 
-export function playSquare(i: number): boolean {
-  let win = false;
+export function playSquare(i: number): GameState {
+  let state: GameState = 'playing';
 
   if (multiplayer) {
-    win = markSquare(i);
-    return win;
+    state = markSquare(i);
+    return state;
   }
 
-  win = markSquare(i);
-  if (win) return win;
+  state = markSquare(i);
+  if (state === 'win' || state === 'tie') return state;
 
   const aiSquare = aiMove();
-  win = markSquare(aiSquare);
-  return win;
+  state = markSquare(aiSquare);
+  return state;
 }

@@ -59,33 +59,33 @@ function resetBoardClasses(): void {
 }
 
 function setSquareEventHandlers(): void {
-  let isWin = false;
+  let win: board.GameState = 'playing';
 
   squares.forEach((square) => {
     square.addEventListener('click', () => {
       const index: number = Number(square.id);
-      isWin = board.playSquare(index);
-      if (isWin) {
-        writeInfoToPage();
-        displayModal('win-screen');
-        writeBoardToPage();
-      } else {
-        writeBoardToPage();
-        writeInfoToPage();
-      }
+      win = board.playSquare(index);
+      writeInfoToPage();
+      writeBoardToPage();
+
+      if (win === 'win') displayModal('win-screen');
+      if (win === 'tie') displayModal('tie-screen');
     });
   });
 }
 
 function setNewGameButton(): void {
-  const newGame = document.querySelector('.new-game');
+  const newGame = document.querySelectorAll('.new-game');
 
-  newGame!.addEventListener('click', () => {
-    board.resetBoard();
-    resetBoardClasses();
-    writeBoardToPage();
-    writeInfoToPage();
-    hideModal('win-screen');
+  newGame!.forEach((button) => {
+    button.addEventListener('click', () => {
+      board.resetBoard();
+      resetBoardClasses();
+      writeBoardToPage();
+      writeInfoToPage();
+      hideModal('win-screen');
+      hideModal('tie-screen');
+    });
   });
 }
 

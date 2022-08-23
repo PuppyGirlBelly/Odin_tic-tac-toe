@@ -177,7 +177,7 @@ button {
   }
 }
 
-#win-screen {
+#win-screen, #tie-screen {
   display: none;
   position: absolute;
   top: 0;
@@ -187,7 +187,7 @@ button {
 
   background: color.adjust(palette.$c5, $alpha: -0.5);
 
-  .win-window {
+  .win-window, .tie-window {
     position: absolute;
     left: 50%;
     top: 50%;
