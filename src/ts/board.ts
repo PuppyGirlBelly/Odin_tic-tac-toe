@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars, import/no-unresolved, import/extensions
 import aiMove from './ai';
 
-type Marker = 'O' | 'X';
+export type Marker = 'O' | 'X';
 export type GameState = 'playing' | 'tie' | 'win';
 
 interface Player {
@@ -35,7 +35,7 @@ function getCurrentPlayer(): Player {
   return players.O;
 }
 
-export function getCurrentPlayerMarker(): string {
+export function getCurrentPlayerMarker(): Marker {
   const player = getCurrentPlayer();
   return player.marker;
 }
@@ -83,7 +83,7 @@ export function getSquare(i: number): string {
   return squares[i];
 }
 
-function setSquare(i: number, mark: string): boolean {
+export function setSquare(i: number, mark: Marker): boolean {
   if (getSquare(i) === '') {
     squares[i] = mark;
     return true;
@@ -91,12 +91,9 @@ function setSquare(i: number, mark: string): boolean {
   return false;
 }
 
-function checkIfEqual(line: string[]): boolean {
-  return line[0] === line[1] && line[1] === line[2] && line[0] !== '';
-}
-
-function hasWinner(): boolean {
-  const lines = [
+function getWinner(): string {
+  let winner = '';
+  [
     [squares[0], squares[1], squares[2]],
     [squares[3], squares[4], squares[5]],
     [squares[6], squares[7], squares[8]],
@@ -105,9 +102,14 @@ function hasWinner(): boolean {
     [squares[2], squares[5], squares[8]],
     [squares[0], squares[4], squares[8]],
     [squares[2], squares[4], squares[6]],
-  ];
+  ].forEach((line) => {
+    if (line.every((v) => v === line[0] && v !== '')) {
+      // eslint-disable-next-line prefer-destructuring
+      winner = line[0];
+    }
+  });
 
-  return lines.some(checkIfEqual);
+  return winner;
 }
 
 function hasTie(): boolean {
@@ -121,7 +123,7 @@ function markSquare(i: number): GameState {
   const successful = setSquare(i, marker);
 
   if (successful) {
-    if (hasWinner()) {
+    if (getWinner() !== '') {
       state = 'win';
       updateScores();
       return state;
