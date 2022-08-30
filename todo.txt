@@ -1,0 +1,4 @@
+TODO: Add jsdoc comments to code
+TODO: Rewrite TS to be more readable
+TODO: Add option for 'dumb' AI
+TODO: Add more polish to CSS
