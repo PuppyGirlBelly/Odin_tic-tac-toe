@@ -71,13 +71,13 @@ function writeInfoToPage(): void {
   const player = board.getCurrentPlayerMarker();
   const marker = player === 'X' ? '✖' : 'ⵔ ';
 
-  p1Label!.textContent = `${p1Name} Score`;
+  p1Label!.textContent = `${p1Name}\nScore`;
   p1Info!.textContent = p1Score.toString();
   turn[0].parentElement!.classList.value = `${player} infobox`;
   turn.forEach((e) => {
     e.textContent = marker;
   });
-  p2Label!.textContent = `${p2Name} Score`;
+  p2Label!.textContent = `${p2Name}\nScore`;
   p2Info!.textContent = p2Score.toString();
 }
 

@@ -1,87 +1,90 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
 
-        <script src="js/bundle.js" defer></script>
-    </head>
-    <body>
-      <h1>Tic-Tac-Toe</h1>
-      <div class="info">
-        <div class="infobox X">
-          <div class="p1-label">✖ Score</div>
-          <div class="p1-info"></div>
+    <script src="js/bundle.js" defer></script>
+  </head>
+  <body>
+    <div class="window">
+      <div class="container">
+        <div class="info">
+          <div class="infobox X">
+            <div class="p1-label">✖ Score</div>
+            <div class="p1-info"></div>
+          </div>
+          <div class="infobox">
+            <div class="turn-label">Current<br>Player</div>
+            <div class="turn-info"></div>
+          </div>
+          <div class="infobox O">
+            <div class="p2-label">ⵔ Score</div>
+            <div class="p2-info"></div>
+          </div>
         </div>
-        <div class="infobox">
-          <div class="turn-label">Current Player</div>
-          <div class="turn-info"></div>
+        <div class="game-board">
+          <div class="square" id="0"></div>
+          <div class="square" id="1"></div>
+          <div class="square" id="2"></div>
+          <div class="square" id="3"></div>
+          <div class="square" id="4"></div>
+          <div class="square" id="5"></div>
+          <div class="square" id="6"></div>
+          <div class="square" id="7"></div>
+          <div class="square" id="8"></div>
         </div>
-        <div class="infobox O">
-          <div class="p2-label">ⵔ Score</div>
-          <div class="p2-info"></div>
-        </div>
-      </div>
-      <div class="game-board">
-        <div class="square" id="0"></div>
-        <div class="square" id="1"></div>
-        <div class="square" id="2"></div>
-        <div class="square" id="3"></div>
-        <div class="square" id="4"></div>
-        <div class="square" id="5"></div>
-        <div class="square" id="6"></div>
-        <div class="square" id="7"></div>
-        <div class="square" id="8"></div>
-      </div>
-      <div class="buttons">
-        <button type="button" class="reset">Reset Game</button>
-      </div>
-      <div id="names-screen">
-        <div class="names-window">
-          <p>Enter your names</p>
-          <form>
-            <fieldset>
-              <legend>Number of Players</legend>
-              <input type="radio" name="player-select" id="easy-mode">
-              <label for="player-select">One (Player vs. Easy AI)</label>
-              <br>
-              <input type="radio" name="player-select" id="hard-mode">
-              <label for="player-select">One (Player vs. Hard AI)</label>
-              <br>
-              <input type="radio" name="player-select" id="multi-player" value="multiPlayer" checked>
-              <label for="player-select">Two (Player vs. Player)</label>
-            </fieldset>
-            <div id="p1-input">
-              <label for="p1-name">X: </label>
-              <input type="text" name="p1-name" id="p1-name" value="✖">
-            </div>
-            <div id="p2-input">
-              <label for="p2-name">O: </label>
-              <input type="text" name="p2-name" id="p2-name" value="ⵔ">
-            </div>
-            <button type="button" class="name-submit">Start Game</button>
-          </form>
+        <div class="buttons">
+          <button type="button" class="reset">Reset Game</button>
         </div>
       </div>
-      <div id="win-screen">
-        <div class="win-window">
-          <p>Congratulations!</p>
-          <p><span class="turn-info"></span> won!</p>
-          <button type="button" class="new-game">New Game</button>
-        </div>
+    </div>
+    <div id="names-screen">
+      <div class="names-window">
+        <p>Enter your names</p>
+        <form>
+          <fieldset>
+            <legend>Number of Players</legend>
+            <input type="radio" name="player-select" id="easy-mode">
+            <label for="player-select">One (Player vs. Easy AI)</label>
+            <br>
+            <input type="radio" name="player-select" id="hard-mode">
+            <label for="player-select">One (Player vs. Hard AI)</label>
+            <br>
+            <input type="radio" name="player-select" id="multi-player" value="multiPlayer" checked>
+            <label for="player-select">Two (Player vs. Player)</label>
+          </fieldset>
+          <div id="p1-input">
+            <label for="p1-name">X: </label>
+            <input type="text" name="p1-name" id="p1-name" value="✖">
+          </div>
+          <div id="p2-input">
+            <label for="p2-name">O: </label>
+            <input type="text" name="p2-name" id="p2-name" value="ⵔ">
+          </div>
+          <button type="button" class="name-submit">Start Game</button>
+        </form>
       </div>
-      <div id="tie-screen">
-        <div class="tie-window">
-          <p>Tie!</p>
-          <p>New game?</p>
-          <button type="button" class="new-game">New Game</button>
-        </div>
+    </div>
+    <div id="win-screen">
+      <div class="win-window">
+        <p>Congratulations!</p>
+        <p><span class="turn-info"></span> won!</p>
+        <button type="button" class="new-game">New Game</button>
       </div>
-    </body>
+    </div>
+    <div id="tie-screen">
+      <div class="tie-window">
+        <p>Tie!</p>
+        <p>New game?</p>
+        <button type="button" class="new-game">New Game</button>
+      </div>
+    </div>
+  </body>
 </html>

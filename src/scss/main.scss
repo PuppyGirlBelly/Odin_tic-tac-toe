@@ -4,8 +4,20 @@
 $grid-size: 200px;
 $margin: 24px;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background: palette.$c1;
+  height: 100vh;
+
+  background-color: palette.$c1;
+  background-image: url('/img/background.gif');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  image-rendering: pixelated;
   color: palette.$c5;
   text-align: center;
 
@@ -16,7 +28,54 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
 
+.window {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  background: color.adjust(palette.$c1, $alpha: -0.1);
+  width: min-content;
+  height: min-content;
+  max-height: 100vh;
+
+  border: calc($margin / 4) solid palette.$c5;
+  border-radius: 0 0 $margin $margin;
+
+  .container {
+    padding: calc($margin / 2) calc($margin * 2);
+  }
+
+  &:before {
+    display: block;
+    padding-left: 0.5rem;
+    padding-bottom: 0.25rem;
+
+    content: "tic-tac-toe";
+    font-size: 1.25rem;
+    text-align: left;
+
+    color: palette.$c1;
+    background-color: palette.$c5;
+  }
+
+  &:after {
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+
+    content: "▤ ▣ ▩";
+    font-size: 1.25rem;
+    color: palette.$c1;
+  }
+
+  button {
+    border-width: 4px;
+    border-radius: 8px;
+    font-size: 1.5rem;
+  }
 }
 
 .X {
@@ -35,7 +94,7 @@ body {
   grid-template-columns: repeat(3, $grid-size);
   gap: calc($margin / 2);
   width: min-content;
-  margin: $margin auto;
+  margin: auto;
 
   .infobox {
     padding: 0;
@@ -44,17 +103,18 @@ body {
     border-radius: 6px;
     font-size: 24px;
 
-    position: relative;
-
     div[class$="label"] {
       background: palette.$c5;
       color: palette.$c1;
       font-style: italic;
+      white-space: pre-wrap;
     }
 
     div[class$="info"] {
+      height: calc($grid-size * 0.4);
       font-size: 4rem;
       font-weight: bold;
+      line-height: calc($grid-size * 0.4);
     }
   }
 }
