@@ -17,6 +17,6 @@ convert -size 1x1 \
   xc:"#B5838D" \
   xc:"#6D6875" \
   -append txt:- |\
-convert $input -ordered-dither o4x4 -remap txt:- $output
+convert $input -strip -coalesce -ordered-dither o4x4 -remap txt:- -layers optimize $output
 
 echo "Written to $output!"

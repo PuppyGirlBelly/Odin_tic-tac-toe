@@ -1,35 +1,64 @@
 // eslint-disable-next-line import/no-unresolved, import/extensions
+import { GameStatus } from './board';
 import * as board from './board';
 
-const squares = document.querySelectorAll<HTMLElement>('.square');
-
-function displayModal(id: string): void {
+/**
+ * Displays an element with the declared ID
+ *
+ * @param {type} id - ID selector of the element you want to show
+ */
+function displayElement(id: string): void {
   const modal = document.getElementById(id);
   if (modal != null) {
     modal.style.display = 'block';
   }
 }
 
-function hideModal(id: string): void {
+/**
+ * Hides an element with the declared ID
+ *
+ * @param {type} id - ID selector of the element you want to hide
+ */
+function hideElement(id: string): void {
   const modal = document.getElementById(id);
   if (modal != null) {
     modal.style.display = 'none';
   }
 }
 
+/**
+ * Write board to page, gets the associated squares of the board from board.ts
+ * and then adds a class to the square on the page that's associated with the
+ * maker; using the CSS class to display it on the page.
+ */
 function writeBoardToPage(): void {
-  let counter = 0;
+  const squares = document.querySelectorAll<HTMLElement>('.square');
   let marker: string = '';
 
-  squares.forEach((square) => {
-    marker = board.getSquare(counter);
+  squares.forEach((square, i) => {
+    marker = board.getSquare(i);
     if (marker !== '') {
       square.classList.add(`${marker}`);
     }
-    counter += 1;
   });
 }
 
+/**
+ * Iterates through all of the squares on the page, and removes any player
+ * marker classes from them.
+ */
+function resetBoardClasses(): void {
+  const squares = document.querySelectorAll<HTMLElement>('.square');
+
+  squares.forEach((square) => {
+    square.classList.remove('X', 'O');
+  });
+}
+
+/**
+ * Gets the 'X' and 'O' player's label, scores, and current player's marker and
+ * writes the information on the UI at the top of the page.
+ */
 function writeInfoToPage(): void {
   const p1Label = document.querySelector('.p1-label');
   const p1Info = document.querySelector('.p1-info');
@@ -52,28 +81,34 @@ function writeInfoToPage(): void {
   p2Info!.textContent = p2Score.toString();
 }
 
-function resetBoardClasses(): void {
-  squares.forEach((square) => {
-    square.classList.remove('X', 'O');
-  });
-}
-
+/**
+ * Adds event handlers to the squares on the page. On each click, the index of
+ * the square is grabbed, and the square is played on the board. Writing the
+ * new board to the screen as well as turn info. Finally checking if a win or
+ * tie modal needs to be displayed.
+ */
 function setSquareEventHandlers(): void {
-  let win: board.GameState = 'playing';
+  const squares = document.querySelectorAll<HTMLElement>('.square');
+  let win: GameStatus;
 
   squares.forEach((square) => {
     square.addEventListener('click', () => {
       const index: number = Number(square.id);
-      win = board.playSquare(index);
+      win = board.takeTurn(index);
       writeInfoToPage();
       writeBoardToPage();
 
-      if (win === 'win') displayModal('win-screen');
-      if (win === 'tie') displayModal('tie-screen');
+      if (win === 'win') displayElement('win-screen');
+      if (win === 'tie') displayElement('tie-screen');
     });
   });
 }
 
+/**
+ * Sets an event listener for the 'new game' button on win and ties screens.
+ * When the button is clicked, the board is reset and new player stats are
+ * written to the screen. Finally hiding the win/tie modal
+ */
 function setNewGameButton(): void {
   const newGame = document.querySelectorAll('.new-game');
 
@@ -83,24 +118,47 @@ function setNewGameButton(): void {
       resetBoardClasses();
       writeBoardToPage();
       writeInfoToPage();
-      hideModal('win-screen');
-      hideModal('tie-screen');
+      hideElement('win-screen');
+      hideElement('tie-screen');
     });
   });
 }
 
+/**
+ * Adds an event listener on the 'Start Game' button on the name screen. First
+ * it gets the player names entered and the info about the number of players
+ * and difficulty of AI.
+ *
+ * Then it sets that info onto the board module; before hiding the name modal.
+ */
 function setNameSubmitButton(): void {
   const submit = document.querySelector('.name-submit');
 
   submit!.addEventListener('click', () => {
     const p1Name = (<HTMLInputElement>document.getElementById('p1-name')).value;
     const p2Name = (<HTMLInputElement>document.getElementById('p2-name')).value;
+    const multi = document.getElementById('multi-player') as HTMLInputElement;
+    const easy = document.getElementById('easy-mode') as HTMLInputElement;
+    const hard = document.getElementById('hard-mode') as HTMLInputElement;
+
+    if (multi!.checked) {
+      board.setMultiplayer(true);
+    } else {
+      board.setMultiplayer(false);
+      if (easy!.checked) board.setAiToHard(false);
+      if (hard!.checked) board.setAiToHard(true);
+    }
     board.setPlayerNames([p1Name, p2Name]);
     writeInfoToPage();
-    hideModal('names-screen');
+    hideElement('names-screen');
   });
 }
 
+/**
+ * Sets an event listener onto the reset button. It resets the state of the
+ * game, as well as the classes and info on the page. Before displaying the
+ * name modal again.
+ */
 function setResetButton(): void {
   const newGame = document.querySelector('.reset');
 
@@ -109,23 +167,29 @@ function setResetButton(): void {
     resetBoardClasses();
     writeBoardToPage();
     writeInfoToPage();
-    displayModal('names-screen');
+    displayElement('names-screen');
   });
 }
 
+/**
+ * Sets a toggle on the 'O' (or Player 2) name input. If a single-player game
+ * is selected, the name is hidden. If a two-player game is selected, then the
+ * element is shown.
+ */
 function toggleNameInput(): void {
   const multi = document.getElementById('multi-player') as HTMLInputElement;
   const p2NameInput = document.getElementById('p2-input');
 
   if (multi!.checked) {
     p2NameInput!.style.display = 'block';
-    board.setMultiplayer(true);
   } else {
     p2NameInput!.style.display = 'none';
-    board.setMultiplayer(false);
   }
 }
 
+/**
+ * Sets a name toggle on the player screen's radio buttons.
+ */
 function setPlayerSelectHandler(): void {
   const radioButtons = document.querySelectorAll('input[name="player-select"]');
   radioButtons.forEach((radio) => {
@@ -133,11 +197,10 @@ function setPlayerSelectHandler(): void {
   });
 }
 
-export function displayNames(): void {
-  displayModal('names-screen');
-}
-
-export function displayHandler(): void {
+/**
+ * Sets the event handlers on the page, and then displays the board and info.
+ */
+export default function displayHandler(): void {
   setNewGameButton();
   setNameSubmitButton();
   setResetButton();
