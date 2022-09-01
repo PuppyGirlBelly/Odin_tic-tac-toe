@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @font-face {
   font-family: "Share Tech Mono";
-  src: url("/font/ShareTechMono-Regular.ttf");
+  src: url("../font/ShareTechMono-Regular.ttf");
 }
 * {
   box-sizing: border-box;
@@ -10,7 +10,7 @@
 body {
   height: 100vh;
   background-color: #FFCDB1;
-  background-image: url("img/background.gif");
+  background-image: url("../img/background.gif");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

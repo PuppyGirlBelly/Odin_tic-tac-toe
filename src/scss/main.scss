@@ -4,7 +4,7 @@
 // @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 @font-face {
   font-family: 'Share Tech Mono';
-  src: url('/font/ShareTechMono-Regular.ttf');
+  src: url('../font/ShareTechMono-Regular.ttf');
 }
 
 $grid-size: 200px;
@@ -18,7 +18,7 @@ body {
   height: 100vh;
 
   background-color: palette.$c1;
-  background-image: url('img/background.gif');
+  background-image: url('../img/background.gif');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
