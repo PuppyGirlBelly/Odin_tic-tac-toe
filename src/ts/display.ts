@@ -69,7 +69,7 @@ function writeInfoToPage(): void {
   const [p1Score, p2Score] = board.getScores();
   const [p1Name, p2Name] = board.getPlayerNames();
   const player = board.getCurrentPlayerMarker();
-  const marker = player === 'X' ? '✖' : 'ⵔ ';
+  const marker = player === 'X' ? '✖' : '○';
 
   p1Label!.textContent = `${p1Name}\nScore`;
   p1Info!.textContent = p1Score.toString();

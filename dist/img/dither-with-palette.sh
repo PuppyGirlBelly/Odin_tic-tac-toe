@@ -13,7 +13,7 @@ output="${file}_dithered.${extension}"
 convert -size 1x1 \
   xc:"#FFCDB1" \
   xc:"#FFB4A2" \
-  xc:"#35989B" \
+  xc:"#E5989B" \
   xc:"#B5838D" \
   xc:"#6D6875" \
   -append txt:- |\

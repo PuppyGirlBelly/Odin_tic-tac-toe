@@ -1,4 +1,8 @@
 @charset "UTF-8";
+@font-face {
+  font-family: "Share Tech Mono";
+  src: url("/font/ShareTechMono-Regular.ttf");
+}
 * {
   box-sizing: border-box;
 }
@@ -6,7 +10,7 @@
 body {
   height: 100vh;
   background-color: #FFCDB1;
-  background-image: url("/img/background.gif");
+  background-image: url("img/background.gif");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -14,6 +18,7 @@ body {
   image-rendering: pixelated;
   color: #6D6875;
   text-align: center;
+  font-family: "Share Tech Mono", monospace;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -33,7 +38,7 @@ body {
   height: -moz-min-content;
   height: min-content;
   max-height: 100vh;
-  border: 6px solid #6D6875;
+  border: 6px solid #B5838D;
   border-radius: 0 0 24px 24px;
 }
 .window .container {
@@ -47,7 +52,7 @@ body {
   font-size: 1.25rem;
   text-align: left;
   color: #FFCDB1;
-  background-color: #6D6875;
+  background-color: #B5838D;
 }
 .window:after {
   position: absolute;

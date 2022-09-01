@@ -1,6 +1,12 @@
 @use 'palette';
 @use 'sass:color';
 
+// @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@font-face {
+  font-family: 'Share Tech Mono';
+  src: url('/font/ShareTechMono-Regular.ttf');
+}
+
 $grid-size: 200px;
 $margin: 24px;
 
@@ -12,7 +18,7 @@ body {
   height: 100vh;
 
   background-color: palette.$c1;
-  background-image: url('/img/background.gif');
+  background-image: url('img/background.gif');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -20,6 +26,7 @@ body {
   image-rendering: pixelated;
   color: palette.$c5;
   text-align: center;
+  font-family: 'Share Tech Mono', monospace;
 
   // Prevent text selection
   -webkit-touch-callout: none;
@@ -41,7 +48,7 @@ body {
   height: min-content;
   max-height: 100vh;
 
-  border: calc($margin / 4) solid palette.$c5;
+  border: calc($margin / 4) solid palette.$c4;
   border-radius: 0 0 $margin $margin;
 
   .container {
@@ -58,7 +65,7 @@ body {
     text-align: left;
 
     color: palette.$c1;
-    background-color: palette.$c5;
+    background-color: palette.$c4;
   }
 
   &:after {
